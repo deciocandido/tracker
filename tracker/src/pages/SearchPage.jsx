@@ -1,24 +1,36 @@
+import { useState } from "react";
 
 // Project files
 import Data from '../data/data';
 
-function SearchPage() {
+export default function SearchPage() {
+    // State
+    const [query, setQuery] = useState("");
+
     // Components
-    //const CardArray = Data.map((item) => ());
+    
+
+ 
+
+    function searchBar(searchType){
+        
+        const filterResult = Data.filter(item => item.parcel_id === searchType);
+        console.log(filterResult);
+        alert(`Parcel n:@ ${filterResult[0].parcel_id} @ with the sender ${filterResult[0].sender} has the status of ${filterResult[0].status}`);
+    }
 
     return (
   
       <div className="App">
         Decio Candido Search
-        <p>
-            <input placeholder="Put here"/>
-        </p>
-        <p>
-            <button>Search</button>
-        </p>
-        
+        <div className="search-bar">
+                <input 
+                placeholder="Search Bar"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                />
+                <button onClick={() => searchBar(query)}>Search Bar</button>
+            </div>
       </div>
     );
   }
-  
-  export default SearchPage;

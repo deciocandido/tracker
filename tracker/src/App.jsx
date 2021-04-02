@@ -5,7 +5,7 @@
 import './css/App.css';
 import SearchPage from './pages/SearchPage';
 
-function App() {
+export default function App() {
   return (
 
     <div className="App">
@@ -13,5 +13,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
