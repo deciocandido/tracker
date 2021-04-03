@@ -1,9 +1,12 @@
-export default function ResultPage() {
+import ParcerDetail from "../components/ParcelDetail";
+
+export default function ResultPage( { parcel } ) {
     return (
   
       <div className="App">
-        Decio Candido Result
+        @ Result Page @
 
+        @ Result Page @
       </div>
     );
   }

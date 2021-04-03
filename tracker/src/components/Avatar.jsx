@@ -1,6 +1,9 @@
+
+
 export default function Avatar(){
-    const avatarObj = require(`../img/avatar/avatar.jpeg`);
-    const avatarURL = avatarObj.default;
+
+    const avatarObject = require(`../img/avatar/avatar.jpeg`);
+    const avatarURL = avatarObject.default;
     return(
         <div className="App">
             <img src={avatarURL} alt="User"/>
