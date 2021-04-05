@@ -24,7 +24,7 @@ export default function Container({ information }) {
         <div className="right">
           <h3 className="title">{information.status}</h3>
           <p className="description">{information.sender}</p>
-          <p className="description">{information.location_name} views</p>
+          <p className="description">{information.location_name}</p>
         </div>
       </div>
     </article>

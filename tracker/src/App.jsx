@@ -15,7 +15,6 @@ export default function App() {
     <div className="App">
       @ APP @
       <BrowserRouter>
-      <Header />
 
       <Switch>
         <Route component={SearchPage} path="/" exact/>
