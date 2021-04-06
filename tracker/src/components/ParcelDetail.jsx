@@ -1,7 +1,10 @@
-export default function ParcelDeatail({ parcel }){
+export default function ParcelDeatail({ parcel, query, found}){
     return(
         <div>
-            <h2>{`ID: ${parcel.parcel_id}`}</h2>
+            {found === false && (
+                <p id="notfound"> No parcel was found by user: {query}</p>
+            )}
+            <h2>Parcel ID: {parcel.parcel_id}</h2>
             <p>Status: {parcel.status}</p>
             <p>Sender: {parcel.sender}</p>
             <p>Location: {parcel.location_name}</p>

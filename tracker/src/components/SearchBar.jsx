@@ -1,42 +1,55 @@
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
+// NPM packages
+import { useEffect, useState } from "react";
 
 // Project files
-import Data from "../data/data";
+import Container from "./Container";
+import ParcelDeatail from "./ParcelDetail";
+import SearchButton from "./SearchButton";
 
 export default function SearchBar() {
     // State
-    const [query, setQuery] = useState("");
+    const [query, setQuery] = useState(""); 
+    const [currentQueryValue, setCurrentQueryValue] = useState(""); 
+    const [found, setFound] = useState(true); 
+    const [parcel, setParcel] = useState([]);
+    const [data, setData] = useState([]); 
 
-    // Property
-    const history = useHistory();
+    // Constants
+    const apiURL = "https://my.api.mockaroo.com/orders.json?key=e49e6840";
+
+    // Methods
+    useEffect(() => {
+      fetch(apiURL)
+      .then((resp) => resp.json())
+      .then(sucessFetch)
+      .then(failFetch);
+    }, [setCurrentQueryValue]);
 
     // Components
     function searchBar(event){
-      //event.preventDefault();
-
-      history.push(`/results/${query}`);
-        //const filterResult = Data.find(item => item.parcel_id === searchType);
-        //alert(`Parcel n:@ ${filterResult.parcel_id} @ with the sender ${filterResult.sender} has the status of ${filterResult.status}`);
+      event.preventDefault();
+      setCurrentQueryValue(query);
+      const filterResult = data
+      .filter((item) => item.parcel_id === query)
+      .map((item) => <Container information={item} />);
+      setParcel(filterResult);
+      {filterResult.length < 1 ? setFound(false) : setFound(true);}
     }
-
+    function sucessFetch(json){
+      setData(json);
+    }
+    function failFetch(error){
+      console.log("Error has occur: ", error)
+    }
+    
+    
     return (
-  
-      <div className="App">
+      <div className="search">
         <div className="search-bar">
-                <input 
-                placeholder="Search Bar"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                />
-                <select id="cars">
-                    <option >Parcel ID</option>
-                    <option >Sender</option>
-                    <option >Location</option>
-                    <option >Status</option>
-                </select>
-                <button onClick={() => searchBar(query)}>Search Bar</button>
-            </div>
+          <SearchButton searchBar={searchBar} query={query} setQuery={setQuery} />
+
+        </div> 
+        <ParcelDeatail parcel={parcel} currentQueryValue={currentQueryValue} found={found} />
       </div>
     );
   }
